@@ -19,6 +19,19 @@ describe 'ravendb' do
       apply_manifest(install_manifest, :catch_changes => true)
     end
 
+    describe file('C:\RavenDB-3.5.3.Setup.exe') do
+       it { should exist }
+    end
+
+    describe port(8080) do
+      it { should be_listening }
+    end
+
+    describe service('RavenDB') do
+      it { should be_installed }
+      it { should be_running }
+      it { should be_enabled }
+    end
   end
 
 end
