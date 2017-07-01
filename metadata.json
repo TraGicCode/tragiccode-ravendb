@@ -2,11 +2,11 @@
   "name": "tragiccode-ravendb",
   "version": "0.1.0",
   "author": "tragiccode",
-  "summary": null,
+  "summary": "The `ravendb` module installs and manages Ravendb on Windows systems.",
   "license": "Apache-2.0",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
+  "source": "https://github.com/TraGicCode/tragiccode-ravendb",
+  "project_page": "https://github.com/TraGicCode/tragiccode-ravendb",
+  "issues_url": "https://github.com/TraGicCode/tragiccode-ravendb/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
