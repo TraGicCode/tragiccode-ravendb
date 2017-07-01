@@ -43,8 +43,23 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class ravendb(
-
+  Enum['installed', 'present', 'absent'] $package_ensure = $ravendb::params::package_ensure,
 ) inherits ravendb::params {
 
+  class { 'ravendb::install':
+    package_ensure => $package_ensure,
+  }
+
+  class { 'ravendb::config':
+
+  }
+
+  class { 'ravendb::service':
+
+  }
+
+  Class['ravendb::install']
+  -> Class['ravendb::config']
+  -> Class['ravendb::service']
 
 }
