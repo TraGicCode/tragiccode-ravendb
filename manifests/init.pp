@@ -24,7 +24,8 @@ class ravendb(
   }
 
   class { 'ravendb::config':
-
+    ravendb_server_exe_config_absolute_path => $ravendb::params::ravendb_server_exe_config_absolute_path,
+    ravendb_port                            => $ravendb_port,
   }
 
   class { 'ravendb::service':

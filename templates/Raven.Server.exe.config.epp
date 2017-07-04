@@ -1,0 +1,25 @@
+<%- | $ravendb_port,
+| -%>
+# Managed by Puppet! Changes made manually may be lost.
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <appSettings>
+        <add key="Raven/Port" value="<%= $ravendb_port %>"/>
+        <add key="Raven/DataDir/Legacy" value="~\Database\System"/>
+        <add key="Raven/DataDir" value="~\Databases\System"/>
+        <add key="Raven/AnonymousAccess" value="Admin"/>
+        <add key="Raven/Licensing/AllowAdminAnonymousAccessForCommercialUse" value="false"/>
+        <add key="Raven/AccessControlAllowOrigin" value="*"/>
+        <add key="Raven/IndexStoragePath" value=""/>
+        <add key="Raven/TransactionJournalsPath" value=""/>
+        <add key="Raven/WorkingDir" value="~\"/>
+        <add key="Raven/FileSystem/DataDir" value="~\FileSystems"/>
+    </appSettings>
+    <runtime>
+        <loadFromRemoteSources enabled="true"/>
+        <gcServer enabled="true"/>
+        <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+            <probing privatePath="Analyzers;Plugins"/>
+        </assemblyBinding>
+    </runtime>
+</configuration>

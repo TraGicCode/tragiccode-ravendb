@@ -18,4 +18,6 @@ class ravendb::params {
   $service_ensure = 'running'
   $service_enable = true
 
+  $ravendb_server_exe_config_absolute_path = "${ravendb_install_folder}\\Raven.Server.exe.config"
+
 }

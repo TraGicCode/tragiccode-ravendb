@@ -12,7 +12,10 @@ describe 'ravendb' do
       :ravendb_database_directory             => 'C:\\RavenDB\\Databases',
       :ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
     }) }
-    it { should contain_class('ravendb::config').that_requires('Class[ravendb::install]').that_notifies('Class[ravendb::service]') }
+    it { should contain_class('ravendb::config').that_requires('Class[ravendb::install]').that_notifies('Class[ravendb::service]').with({
+      :ravendb_server_exe_config_absolute_path => 'C:\\RavenDB\\Raven.Server.exe.config',
+      :ravendb_port                            => '8080',
+    }) }
     it { should contain_class('ravendb::service').with({
       :service_ensure => 'running',
       :service_enable => true,
