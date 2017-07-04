@@ -22,6 +22,16 @@ class ravendb::install(
   }
   # https://chocolatey.org/packages/RavenDB3
   # https://github.com/ravendb/ravendb/blob/f3b5f3a186d07776bf38bf9effab4d7d75d5c647/Raven.Setup/Settings.wxi
+  # RAVEN_WORKING_DIR = C:\Raven
+  # RAVEN_DATA_DIR = ~\Databases
+  # RAVENFS_DATA_DIR = ~\FileSystems
+  # RAVEN_TARGET_ENVIRONMENT = DEVELOPMENT
+  # RAVEN_INSTALLATION_TYPE = SERVICE
+  # SERVICE_NAME = RavenDB
+  # SERVICE_PORT = 8080
+  # INSTALLFOLDER = C:\RavenDB\
+
+  # C:\Users\tragiccode\Downloads\RavenDB-3.5.3.Setup.exe /quiet /log C:\RavenDB.install.log /msicl "RAVEN_TARGET_ENVIRONMENT=production RAVEN_WORKING_DIR=~\ INSTALLFOLDER=C:\RavenDB RAVEN_INSTALLATION_TYPE=Service ADDLOCAL=Service"
   package { 'RavenDB':
     ensure          => $package_ensure,
     source          => $ravendb::params::ravendb_download_absolute_path,

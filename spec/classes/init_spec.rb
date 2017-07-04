@@ -13,6 +13,9 @@ describe 'ravendb' do
       :ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
     }) }
     it { should contain_class('ravendb::config').that_requires('Class[ravendb::install]') }
-    it { should contain_class('ravendb::service').that_requires('Class[ravendb::config]') }
+    it { should contain_class('ravendb::service').that_requires('Class[ravendb::config]').with({
+      :service_ensure => 'running',
+      :service_enable => true,
+    }) }
   end
 end

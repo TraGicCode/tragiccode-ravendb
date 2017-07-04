@@ -15,5 +15,7 @@ class ravendb::params {
   # $ravendb_installation_type = 'Service'
   $ravendb_service_name = 'RavenDB'
   $ravendb_port = 8080
+  $service_ensure = 'running'
+  $service_enable = true
 
 }
