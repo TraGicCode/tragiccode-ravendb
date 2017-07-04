@@ -6,9 +6,12 @@ describe 'ravendb' do
     let(:install_manifest) {
       <<-MANIFEST
           class { 'ravendb':
-              package_ensure       => 'present',
-              ravendb_service_name => 'RavenDB',
-              ravendb_port         => 8080,
+              package_ensure                         => 'present',
+              ravendb_service_name                   => 'RavenDB',
+              ravendb_port                           => 8080,
+              ravendb_install_log_absolute_path      => 'C:\\RavenDB.install.log',
+              ravendb_database_directory             => 'C:\\RavenDB\\Databases'
+              ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
           }
         MANIFEST
     }
@@ -46,8 +49,6 @@ describe 'ravendb' do
       <<-MANIFEST
           class { 'ravendb':
               package_ensure       => 'absent',
-              ravendb_service_name => 'RavenDB',
-              ravendb_port         => 8080,
           }
         MANIFEST
     }

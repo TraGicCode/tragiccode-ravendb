@@ -10,8 +10,25 @@ describe 'ravendb::install' do
     }) }
 
     it { should contain_package('RavenDB').with({
-      :ensure => 'present',
-      :source => 'C:\\RavenDB-3.5.3.Setup.exe',
+      :ensure          => 'present',
+      :source          => 'C:\\RavenDB-3.5.3.Setup.exe',
+      :install_options => [
+        '/quiet',
+        '/log',
+        'C:\\RavenDB.install.log',
+        '/msicl',
+        '"',
+        'RAVEN_TARGET_ENVIRONMENT=development',
+        'RAVEN_WORKING_DIR=~\\',
+        'INSTALLFOLDER=C:\\RavenDB',
+        'RAVEN_DATA_DIR=C:\\RavenDB\\Databases',
+        "RAVENFS_DATA_DIR=C:\\RavenDB\\FileSystems",
+        'RAVEN_INSTALLATION_TYPE=Service',
+        'ADDLOCAL=Service',
+        "SERVICE_PORT=8080",
+        "SERVICE_NAME=RavenDB",
+        '"',
+      ],
     }).that_requires('File[C:\\RavenDB-3.5.3.Setup.exe]')}
 
   end

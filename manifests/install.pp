@@ -7,6 +7,8 @@ class ravendb::install(
   Integer $ravendb_port                                         = $ravendb::params::ravendb_port,
   Stdlib::Absolutepath $ravendb_install_log_absolute_path       = $ravendb::params::ravendb_install_log_absolute_path,
   Enum['development', 'production'] $ravendb_target_environment = $ravendb::params::ravendb_target_environment,
+  Stdlib::Absolutepath $ravendb_database_directory              = $ravendb::params::ravendb_database_directory,
+  Stdlib::Absolutepath $ravendb_filesystems_database_directory  = $ravendb::params::ravendb_filesystems_database_directory,
 ) inherits ravendb::params {
 
   $file_ensure = $package_ensure ? {
@@ -32,6 +34,8 @@ class ravendb::install(
       "RAVEN_TARGET_ENVIRONMENT=${ravendb_target_environment}",
       'RAVEN_WORKING_DIR=~\\', # Where you want the Databases + Assemblies folder to live
       'INSTALLFOLDER=C:\\RavenDB', # Where you want the actual ravendb application binaries to live
+      "RAVEN_DATA_DIR=${ravendb_database_directory}",
+      "RAVENFS_DATA_DIR=${ravendb_filesystems_database_directory}",
       'RAVEN_INSTALLATION_TYPE=Service',
       'ADDLOCAL=Service',
       "SERVICE_PORT=${ravendb_port}",
