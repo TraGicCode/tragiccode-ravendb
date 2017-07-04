@@ -43,16 +43,20 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class ravendb(
-  Enum['installed', 'present', 'absent'] $package_ensure = $ravendb::params::package_ensure,
-  String $ravendb_service_name                           = $ravendb::params::ravendb_service_name,
-  Integer $ravendb_port                                  = $ravendb::params::ravendb_port,
+  Enum['installed', 'present', 'absent'] $package_ensure        = $ravendb::params::package_ensure,
+  String $ravendb_service_name                                  = $ravendb::params::ravendb_service_name,
+  Integer $ravendb_port                                         = $ravendb::params::ravendb_port,
+  Stdlib::Absolutepath $ravendb_install_log_absolute_path       = $ravendb::params::ravendb_install_log_absolute_path,
+  Enum['development', 'production'] $ravendb_target_environment = $ravendb::params::ravendb_target_environment,
 
 ) inherits ravendb::params {
 
   class { 'ravendb::install':
-    package_ensure       => $package_ensure,
-    ravendb_service_name => $ravendb_service_name,
-    ravendb_port         => $ravendb_port,
+    package_ensure                    => $package_ensure,
+    ravendb_service_name              => $ravendb_service_name,
+    ravendb_port                      => $ravendb_port,
+    ravendb_install_log_absolute_path => $ravendb_install_log_absolute_path,
+    ravendb_target_environment        => $ravendb_target_environment,
   }
 
   class { 'ravendb::config':

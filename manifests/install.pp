@@ -2,9 +2,11 @@
 #
 #
 class ravendb::install(
-  Enum['installed', 'present', 'absent'] $package_ensure = $ravendb::params::package_ensure,
-  String $ravendb_service_name                           = $ravendb::params::ravendb_service_name,
-  Integer $ravendb_port                                  = $ravendb::params::ravendb_port,
+  Enum['installed', 'present', 'absent'] $package_ensure        = $ravendb::params::package_ensure,
+  String $ravendb_service_name                                  = $ravendb::params::ravendb_service_name,
+  Integer $ravendb_port                                         = $ravendb::params::ravendb_port,
+  Stdlib::Absolutepath $ravendb_install_log_absolute_path       = $ravendb::params::ravendb_install_log_absolute_path,
+  Enum['development', 'production'] $ravendb_target_environment = $ravendb::params::ravendb_target_environment,
 ) inherits ravendb::params {
 
   $file_ensure = $package_ensure ? {
@@ -24,10 +26,10 @@ class ravendb::install(
     install_options => [
       '/quiet',
       '/log',
-      'C:\\RavenDB.install.log',
+      $ravendb_install_log_absolute_path,
       '/msicl',
       '"',
-      'RAVEN_TARGET_ENVIRONMENT=DEVELOPMENT',
+      "RAVEN_TARGET_ENVIRONMENT=${ravendb_target_environment}",
       'RAVEN_WORKING_DIR=~\\', # Where you want the Databases + Assemblies folder to live
       'INSTALLFOLDER=C:\\RavenDB', # Where you want the actual ravendb application binaries to live
       'RAVEN_INSTALLATION_TYPE=Service',
