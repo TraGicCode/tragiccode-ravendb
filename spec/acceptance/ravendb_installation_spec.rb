@@ -23,8 +23,13 @@ describe 'ravendb' do
     it 'should be idempotent' do
       apply_manifest(install_manifest, :catch_changes => true)
     end
+    
 
     describe file('C:\RavenDB-3.5.3.Setup.exe') do
+       it { should exist }
+    end
+
+    describe file('C:\RavenDB.install.log') do
        it { should exist }
     end
 
@@ -48,7 +53,8 @@ describe 'ravendb' do
     let(:install_manifest) {
       <<-MANIFEST
           class { 'ravendb':
-              package_ensure       => 'absent',
+              package_ensure                      => 'absent',
+              ravendb_uninstall_log_absolute_path => 'C:\\RavenDB.uninstall.log',
           }
         MANIFEST
     }
@@ -63,6 +69,10 @@ describe 'ravendb' do
 
     describe file('C:\RavenDB-3.5.3.Setup.exe') do
        it { should_not exist }
+    end
+
+    describe file('C:\RavenDB.uninstall.log') do
+       it { should exist }
     end
 
     describe package('RavenDB') do

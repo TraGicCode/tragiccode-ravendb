@@ -6,6 +6,7 @@ class ravendb::install(
   String $ravendb_service_name                                  = $ravendb::params::ravendb_service_name,
   Integer $ravendb_port                                         = $ravendb::params::ravendb_port,
   Stdlib::Absolutepath $ravendb_install_log_absolute_path       = $ravendb::params::ravendb_install_log_absolute_path,
+  Stdlib::Absolutepath $ravendb_uninstall_log_absolute_path     = $ravendb::params::ravendb_uninstall_log_absolute_path,
   Enum['development', 'production'] $ravendb_target_environment = $ravendb::params::ravendb_target_environment,
   Stdlib::Absolutepath $ravendb_database_directory              = $ravendb::params::ravendb_database_directory,
   Stdlib::Absolutepath $ravendb_filesystems_database_directory  = $ravendb::params::ravendb_filesystems_database_directory,
@@ -51,6 +52,11 @@ class ravendb::install(
       "SERVICE_PORT=${ravendb_port}",
       "SERVICE_NAME=${ravendb_service_name}",
       '"',
+    ],
+    uninstall_options => [
+      '/quiet',
+      '/log',
+      $ravendb_uninstall_log_absolute_path,
     ],
   }
 

@@ -9,6 +9,7 @@ describe 'ravendb' do
       :ravendb_port                           => '8080',
       :ravendb_target_environment             => 'development',
       :ravendb_install_log_absolute_path      => 'C:\\RavenDB.install.log',
+      :ravendb_uninstall_log_absolute_path    => 'C:\\RavenDB.uninstall.log',
       :ravendb_database_directory             => 'C:\\RavenDB\\Databases',
       :ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
     }) }
