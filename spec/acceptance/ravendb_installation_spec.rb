@@ -6,7 +6,9 @@ describe 'ravendb' do
     let(:install_manifest) {
       <<-MANIFEST
           class { 'ravendb':
-              package_ensure => 'present',
+              package_ensure       => 'present',
+              ravendb_service_name => 'RavenDB',
+              ravendb_port         => 8080,
           }
         MANIFEST
     }

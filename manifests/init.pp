@@ -44,10 +44,15 @@
 #
 class ravendb(
   Enum['installed', 'present', 'absent'] $package_ensure = $ravendb::params::package_ensure,
+  String $ravendb_service_name                           = $ravendb::params::ravendb_service_name,
+  Integer $ravendb_port                                  = $ravendb::params::ravendb_port,
+
 ) inherits ravendb::params {
 
   class { 'ravendb::install':
-    package_ensure => $package_ensure,
+    package_ensure       => $package_ensure,
+    ravendb_service_name => $ravendb_service_name,
+    ravendb_port         => $ravendb_port,
   }
 
   class { 'ravendb::config':
