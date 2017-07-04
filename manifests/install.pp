@@ -16,7 +16,8 @@ class ravendb::install(
     ensure => $file_ensure,
     source => $ravendb::params::ravendb_download_url,
   }
-
+  # https://chocolatey.org/packages/RavenDB3
+  # https://github.com/ravendb/ravendb/blob/f3b5f3a186d07776bf38bf9effab4d7d75d5c647/Raven.Setup/Settings.wxi
   package { 'RavenDB':
     ensure          => $package_ensure,
     source          => $ravendb::params::ravendb_download_absolute_path,
