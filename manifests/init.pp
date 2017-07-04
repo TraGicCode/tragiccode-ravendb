@@ -34,6 +34,6 @@ class ravendb(
 
   Class['ravendb::install']
   -> Class['ravendb::config']
-  -> Class['ravendb::service']
+  ~> Class['ravendb::service']
 
 }
