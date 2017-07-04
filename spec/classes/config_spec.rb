@@ -8,7 +8,8 @@ describe 'ravendb::config' do
 
     it { should contain_file('C:\\RavenDB\Raven.Server.exe.config').with({
       :ensure  => 'file',
-    }).with_content(/#{Regexp.escape('<add key="Raven/Port" value="8080"/>')}/) }
+    })
+    .with_content(/#{Regexp.escape('<add key="Raven/Port" value="8080"/>')}/) }
 
   end
 end
