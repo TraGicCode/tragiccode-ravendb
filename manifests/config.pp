@@ -12,7 +12,7 @@ class ravendb::config(
 
   file { $ravendb_server_exe_config_absolute_path:
     ensure  => file,
-    content => epp('ravendb/Raven.Server.exe.config.epp', $raven_server_exe_config_hash),
+    content => regsubst(epp('ravendb/Raven.Server.exe.config.epp', $raven_server_exe_config_hash), '\n', "\r\n", 'EMG'),
   }
 
 }
