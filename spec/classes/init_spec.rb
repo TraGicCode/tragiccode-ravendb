@@ -18,6 +18,7 @@ describe 'ravendb' do
       :ravendb_port                            => '8080',
     }) }
     it { should contain_class('ravendb::service').with({
+      :package_ensure => 'present',
       :service_ensure => 'running',
       :service_enable => true,
     }) }

@@ -10,4 +10,11 @@ describe 'ravendb::service' do
     }) }
 
   end
+
+  context 'with package_ensure => absent' do
+    let(:params) {{
+      :package_ensure => 'absent',
+    }}
+    it { should_not contain_service('RavenDB') }
+  end
 end

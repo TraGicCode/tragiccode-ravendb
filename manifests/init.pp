@@ -31,6 +31,7 @@ class ravendb(
   }
 
   class { 'ravendb::service':
+    package_ensure => $package_ensure,
     service_ensure => $service_ensure,
     service_enable => $service_enable,
   }
