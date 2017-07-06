@@ -12,8 +12,8 @@ class ravendb::service(
     # This is needed because after install of the package a refresh is fired from config.pp
     # When puppet gets here the service is in a i'm starting state.  so i need to have someway to
     # keep trying to restart-service.
-    exec { 'reliable-restart-when-service-pending':
-        command     => "powershell.exe -ExecutionPolicy ByPass -Command \"try { \$svc = Get-Service ${ravendb_service_name}; \$svc.WaitForStatus('Running','00:00:10'); Restart-Service ${ravendb_service_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }\"",
+    exec { 'wait-for-service-to-start':
+        command     => "powershell.exe -ExecutionPolicy ByPass -Command \"try { \$svc = Get-Service ${ravendb_service_name} -ErrorAction Stop; \$svc.WaitForStatus('Running','00:00:30'); exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }\"",
         path        => ['C:\Windows\System32\WindowsPowerShell\v1.0'],
         logoutput   => true,
         refreshonly => true,

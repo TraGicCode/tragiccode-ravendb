@@ -31,5 +31,5 @@ HOSTS:
     #     from_ip: '127.0.0.1'
     #     to_ip: '0.0.0.0'
 CONFIG:
-  log_level: verbose
+  log_level: debug
   type: aio # the agent type.  This is the new aio so lets use this for puppet 4 and up
