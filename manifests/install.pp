@@ -60,4 +60,7 @@ class ravendb::install(
     ],
   }
 
+  File[$ravendb::params::ravendb_download_absolute_path]
+  -> Package['RavenDB']
+
 }
