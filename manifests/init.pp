@@ -13,7 +13,11 @@ class ravendb(
   Enum['running', 'stopped'] $service_ensure                    = $ravendb::params::service_ensure,
   Variant[ Boolean, Enum['manual'] ] $service_enable            = $ravendb::params::service_enable,
 ) inherits ravendb::params {
+  contain ravendb::install
+  contain ravendb::config
 
+  contain ravendb::service
+  
   class { 'ravendb::install':
     package_ensure                         => $package_ensure,
     ravendb_service_name                   => $ravendb_service_name,
