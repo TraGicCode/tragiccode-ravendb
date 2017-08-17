@@ -33,6 +33,9 @@ class ravendb::install(
   # INSTALLFOLDER = C:\RavenDB\
 
   # C:\Users\tragiccode\Downloads\RavenDB-3.5.3.Setup.exe /quiet /log C:\RavenDB.install.log /msicl "RAVEN_TARGET_ENVIRONMENT=production RAVEN_WORKING_DIR=~\ INSTALLFOLDER=C:\RavenDB RAVEN_INSTALLATION_TYPE=Service ADDLOCAL=Service"
+  # NOTE: There is a bug in the uninstall of ravendb.  It leaves around the following registry key
+  #       HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{267636DE-48A9-44AA-8DE7-E855F10589F1}
+  #       also the uninstall doesn't even use the .exe installer....it uses the stupid Raven.Server.exe /uninstall which i think is the issue
   package { 'RavenDB':
     ensure            => $package_ensure,
     source            => $ravendb::params::ravendb_download_absolute_path,
