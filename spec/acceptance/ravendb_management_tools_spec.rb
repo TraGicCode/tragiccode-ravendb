@@ -29,7 +29,7 @@ describe 'ravendb' do
       it { should exist }
     end
 
-    describe file('C:\RavenDBTools') do
+    describe file('C:\RavenDB Tools') do
       it { should exist }
     end
   end
@@ -57,7 +57,7 @@ describe 'ravendb' do
        it { should_not exist }
     end
 
-    describe file('C:\RavenDBTools') do
+    describe file('C:\RavenDB Tools') do
        it { should exist }
     end
 

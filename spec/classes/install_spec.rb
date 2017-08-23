@@ -69,7 +69,7 @@ describe 'ravendb::install' do
     it { should contain_dsc_archive('Unzip RavenDB Tools').with({
       :ensure          => 'present',
       :dsc_path        => 'C:\\RavenDB-3.5.4.Tools.zip',
-      :dsc_destination => 'C:\\RavenDBTools',
+      :dsc_destination => 'C:\\RavenDB Tools',
     }) }
 
   end
