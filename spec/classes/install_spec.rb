@@ -4,14 +4,14 @@ describe 'ravendb::install' do
     it { should contain_class('ravendb::install') }
     it { should contain_class('ravendb::params') }
 
-    it { should contain_file('C:\\RavenDB-3.5.3.Setup.exe').with({
+    it { should contain_file('C:\\RavenDB-3.5.4.Setup.exe').with({
       :ensure => 'file',
-      :source => 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.3.Setup.exe',
+      :source => 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.4.Setup.exe',
     }) }
 
     it { should contain_package('RavenDB').with({
       :ensure          => 'present',
-      :source          => 'C:\\RavenDB-3.5.3.Setup.exe',
+      :source          => 'C:\\RavenDB-3.5.4.Setup.exe',
       :install_options => [
         '/quiet',
         '/log',
@@ -29,7 +29,7 @@ describe 'ravendb::install' do
         "SERVICE_NAME=RavenDB",
         '"',
       ],
-    }).that_requires('File[C:\\RavenDB-3.5.3.Setup.exe]')}
+    }).that_requires('File[C:\\RavenDB-3.5.4.Setup.exe]')}
 
   end
 
@@ -38,15 +38,15 @@ describe 'ravendb::install' do
       :package_ensure => 'absent',
     }}
 
-    it { should contain_file('C:\\RavenDB-3.5.3.Setup.exe').with({
+    it { should contain_file('C:\\RavenDB-3.5.4.Setup.exe').with({
       :ensure => 'absent',
-      :source => 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.3.Setup.exe',
+      :source => 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.4.Setup.exe',
     }) }
     
     it { should contain_package('RavenDB').with({
       :ensure => 'absent',
-      :source => 'C:\\RavenDB-3.5.3.Setup.exe',
-    }).that_requires('File[C:\\RavenDB-3.5.3.Setup.exe]')}
+      :source => 'C:\\RavenDB-3.5.4.Setup.exe',
+    }).that_requires('File[C:\\RavenDB-3.5.4.Setup.exe]')}
 
   end
 end
