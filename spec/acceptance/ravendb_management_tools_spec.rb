@@ -2,12 +2,12 @@ require 'spec_helper_acceptance'
 
 describe 'ravendb' do
 
-  context 'when installing with provided mandatory parameters' do
+  context 'when installing management tools' do
     let(:install_manifest) {
       <<-MANIFEST
           class { 'ravendb':
               package_ensure                         => 'present',
-              include_management_tools               => false,
+              include_management_tools               => true,
               ravendb_service_name                   => 'RavenDB',
               ravendb_port                           => 8080,
               ravendb_install_log_absolute_path      => 'C:\\RavenDB.install.log',
@@ -25,46 +25,22 @@ describe 'ravendb' do
       apply_manifest(install_manifest, :catch_changes => true)
     end
     
-    
     describe file('C:\RavenDB-3.5.4.Tools.zip') do
-      it { should_not exist }
+      it { should exist }
     end
 
     describe file('C:\RavenDBTools') do
-      it { should_not exist }
-    end
-
-
-    describe file('C:\RavenDB-3.5.4.Setup.exe') do
-       it { should exist }
-    end
-
-    describe file('C:\RavenDB.install.log') do
-       it { should exist }
-    end
-
-    describe package('RavenDB') do
-      it { should be_installed }
-    end
-
-    describe port(8080) do
-      it { should be_listening }
-    end
-
-    describe service('RavenDB') do
-      it { should be_installed }
-      it { should be_running }
-      it { should be_enabled }
+      it { should exist }
     end
   end
 
 
-  context 'when uninstalling with provided mandatory parameters' do
+  context 'when uninstalling management tools' do
     let(:install_manifest) {
       <<-MANIFEST
           class { 'ravendb':
-              package_ensure                      => 'absent',
-              ravendb_uninstall_log_absolute_path => 'C:\\RavenDB.uninstall.log',
+              package_ensure                      => 'present',
+              include_management_tools            => false,
           }
         MANIFEST
     }
@@ -77,11 +53,11 @@ describe 'ravendb' do
       apply_manifest(install_manifest, :catch_changes => true)
     end
 
-    describe file('C:\RavenDB-3.5.4.Setup.exe') do
+    describe file('C:\RavenDB-3.5.4.Tools.zip') do
        it { should_not exist }
     end
 
-    describe file('C:\RavenDB.uninstall.log') do
+    describe file('C:\RavenDBTools') do
        it { should exist }
     end
 

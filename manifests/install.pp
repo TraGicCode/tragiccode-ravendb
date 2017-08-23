@@ -2,23 +2,46 @@
 #
 #
 class ravendb::install(
-  Enum['installed', 'present', 'absent'] $package_ensure        = $ravendb::params::package_ensure,
-  String $ravendb_service_name                                  = $ravendb::params::ravendb_service_name,
-  Integer $ravendb_port                                         = $ravendb::params::ravendb_port,
-  Stdlib::Absolutepath $ravendb_install_log_absolute_path       = $ravendb::params::ravendb_install_log_absolute_path,
-  Stdlib::Absolutepath $ravendb_uninstall_log_absolute_path     = $ravendb::params::ravendb_uninstall_log_absolute_path,
-  Enum['development', 'production'] $ravendb_target_environment = $ravendb::params::ravendb_target_environment,
-  Stdlib::Absolutepath $ravendb_database_directory              = $ravendb::params::ravendb_database_directory,
-  Stdlib::Absolutepath $ravendb_filesystems_database_directory  = $ravendb::params::ravendb_filesystems_database_directory,
+  Enum['installed', 'present', 'absent'] $package_ensure                  = $ravendb::params::package_ensure,
+  Boolean $include_management_tools                                       = $ravendb::params::include_management_tools,
+  Optional[Stdlib::Httpurl] $management_tools_download_url                = $ravendb::params::management_tools_download_url,
+  Optional[Stdlib::Absolutepath] $management_tools_download_absolute_path = $ravendb::params::management_tools_download_absolute_path,
+  Optional[Stdlib::Absolutepath] $management_tools_install_directory      = $ravendb::params::management_tools_install_directory,
+  String $ravendb_service_name                                            = $ravendb::params::ravendb_service_name,
+  Integer $ravendb_port                                                   = $ravendb::params::ravendb_port,
+  Stdlib::Absolutepath $ravendb_install_log_absolute_path                 = $ravendb::params::ravendb_install_log_absolute_path,
+  Stdlib::Absolutepath $ravendb_uninstall_log_absolute_path               = $ravendb::params::ravendb_uninstall_log_absolute_path,
+  Enum['development', 'production'] $ravendb_target_environment           = $ravendb::params::ravendb_target_environment,
+  Stdlib::Absolutepath $ravendb_database_directory                        = $ravendb::params::ravendb_database_directory,
+  Stdlib::Absolutepath $ravendb_filesystems_database_directory            = $ravendb::params::ravendb_filesystems_database_directory,
 ) inherits ravendb::params {
 
-  $file_ensure = $package_ensure ? {
+  $installer_file_ensure = $package_ensure ? {
     'installed' => 'file',
     'present'   => 'file',
     default     => 'absent',
   }
+
+  $management_tools_file_ensure = $include_management_tools ? {
+    true    => 'file',
+    default => 'absent',
+  }
+
+  file { $management_tools_download_absolute_path:
+    ensure => $management_tools_file_ensure,
+    source => $management_tools_download_url,
+  }
+
+  if $include_management_tools {
+    dsc_archive { 'Unzip RavenDB Tools':
+      ensure          => 'present',
+      dsc_path        => $management_tools_download_absolute_path,
+      dsc_destination => $management_tools_install_directory,
+    }
+  }
+
   file { $ravendb::params::ravendb_download_absolute_path:
-    ensure => $file_ensure,
+    ensure => $installer_file_ensure,
     source => $ravendb::params::ravendb_download_url,
   }
   # https://chocolatey.org/packages/RavenDB3

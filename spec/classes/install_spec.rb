@@ -31,6 +31,13 @@ describe 'ravendb::install' do
       ],
     }).that_requires('File[C:\\RavenDB-3.5.4.Setup.exe]')}
 
+
+    it { should contain_file('C:\\RavenDB-3.5.4.Tools.zip').with({
+      :ensure => 'absent',
+      :source => 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.4.Tools.zip',
+    }) }
+
+
   end
 
   context 'with package_ensure => absent' do
@@ -45,8 +52,25 @@ describe 'ravendb::install' do
     
     it { should contain_package('RavenDB').with({
       :ensure => 'absent',
-      :source => 'C:\\RavenDB-3.5.4.Setup.exe',
     }).that_requires('File[C:\\RavenDB-3.5.4.Setup.exe]')}
+  end
+
+  context 'with include_management_tools => true' do
+    let(:params) {{
+      :include_management_tools => true,
+    }}
+
+    it { should contain_file('C:\\RavenDB-3.5.4.Tools.zip').with({
+      :ensure => 'file',
+      :source => 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.4.Tools.zip',
+    }) }
+
+    
+    it { should contain_dsc_archive('Unzip RavenDB Tools').with({
+      :ensure          => 'present',
+      :dsc_path        => 'C:\\RavenDB-3.5.4.Tools.zip',
+      :dsc_destination => 'C:\\RavenDBTools',
+    }) }
 
   end
 end

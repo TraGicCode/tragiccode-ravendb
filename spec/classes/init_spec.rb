@@ -1,10 +1,12 @@
 require 'spec_helper'
 describe 'ravendb' do
   context 'with default values for all parameters' do
+    it { should compile }
     it { should contain_class('ravendb') }
     it { should contain_class('ravendb::params') }
     it { should contain_class('ravendb::install').with({
       :package_ensure                         => 'present',
+      :include_management_tools               => false,
       :ravendb_service_name                   => 'RavenDB',
       :ravendb_port                           => '8080',
       :ravendb_target_environment             => 'development',

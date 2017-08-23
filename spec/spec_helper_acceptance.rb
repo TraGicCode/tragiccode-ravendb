@@ -31,6 +31,7 @@ hosts.each do |host|
   install_cert_on_windows(host, 'geotrustglobal', GEOTRUST_GLOBAL_CA)
   # Install module dependencies
   on host, puppet('module', 'install', 'puppetlabs-stdlib')
+  on host, puppet('module', 'install', 'puppetlabs-dsc')
 end
 
 RSpec.configure do |c|

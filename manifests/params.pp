@@ -3,8 +3,13 @@
 #
 class ravendb::params {
   $package_ensure = 'present'
+  $include_management_tools = false
+  $ravendb_download_base_url = 'https://daily-builds.s3.amazonaws.com'
   $ravendb_download_absolute_path = 'C:\\RavenDB-3.5.4.Setup.exe'
-  $ravendb_download_url = 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.4.Setup.exe'
+  $ravendb_download_url = "${ravendb_download_base_url}/RavenDB-3.5.4.Setup.exe"
+  $management_tools_download_url = "${ravendb_download_base_url}/RavenDB-3.5.4.Tools.zip"
+  $management_tools_download_absolute_path = 'C:\\RavenDB-3.5.4.Tools.zip'
+  $management_tools_install_directory = 'C:\\RavenDBTools'
   $ravendb_install_log_absolute_path = 'C:\\RavenDB.install.log'
   $ravendb_uninstall_log_absolute_path = 'C:\\RavenDB.uninstall.log'
   $ravendb_target_environment = 'development'
