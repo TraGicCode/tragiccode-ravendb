@@ -17,3 +17,10 @@ gem 'winrm'
 
 gem 'rake'
 gem 'rubocop'
+gem 'rubocop-rspec'
+
+# Debugging
+gem 'pry'                # Prey Debugger: Consle driven debugger.  Stops the execution in the middle of a call to allow inspection of ruby variables
+gem 'pry-byebug'         # Pry Plugin: used to step through the code
+gem 'pry-stack_explorer' # Pry Plugin: used to step through the code.  Shows how you got to where you are now and the variables at each point in the stack
+gem 'pry-rescue'
