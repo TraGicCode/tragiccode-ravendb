@@ -3,6 +3,8 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'metadata-json-lint/rake_task'
 require 'puppet-strings/tasks'
 require "guard/rake_task"
+require 'github_changelog_generator/task'
+
 
 
 Guard::RakeTask.new(:guard)
@@ -29,4 +31,13 @@ task :test do
   [:metadata_lint, :lint, :validate, :spec].each do |test|
     Rake::Task[test].invoke
   end
+end
+
+GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+  version = (Blacksmith::Modulefile.new).version
+  config.future_release = "v#{version}" if version =~ /^\d+\.\d+.\d+$/
+  config.header = "# Changelog\n\nAll notable changes to this project will be documented in this file.\nThis project follows semver to help clients understand the impact of updates/changes.  Find out more at http://semver.org."
+  metadata_json = File.join(File.dirname(__FILE__), 'metadata.json')
+  metadata = JSON.load(File.read(metadata_json))
+  config.project = metadata['name']
 end
