@@ -4,6 +4,7 @@ require 'metadata-json-lint/rake_task'
 require 'puppet-strings/tasks'
 require "guard/rake_task"
 require 'github_changelog_generator/task'
+require 'puppet_blacksmith/rake_tasks'
 
 
 
