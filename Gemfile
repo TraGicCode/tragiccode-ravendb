@@ -8,6 +8,7 @@ gem 'puppet-lint', '>= 1.0.0'
 gem 'puppet-strings'
 gem 'puppetlabs_spec_helper', '>= 1.0.0'
 gem 'rspec-puppet'
+gem 'github_changelog_generator'
 
 gem 'beaker'
 gem 'beaker-puppet_install_helper'
