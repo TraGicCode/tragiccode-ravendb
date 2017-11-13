@@ -1,4 +1,5 @@
-<%- | $ravendb_port,
+<%- | Integer $ravendb_port,
+      Hash $config_hash,
 | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -13,6 +14,9 @@
         <add key="Raven/TransactionJournalsPath" value=""/>
         <add key="Raven/WorkingDir" value="~\"/>
         <add key="Raven/FileSystem/DataDir" value="~\FileSystems"/>
+    <%- $config_hash.each |$key, $value| { -%>
+        <add key="<%= $key %>" value="<%= $value %>"/>
+    <%- } -%>
     </appSettings>
     <runtime>
         <loadFromRemoteSources enabled="true"/>

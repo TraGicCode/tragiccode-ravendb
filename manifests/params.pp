@@ -17,6 +17,10 @@ class ravendb::params {
   $ravendb_install_folder = 'C:\\RavenDB'
   $ravendb_database_directory = 'C:\\RavenDB\\Databases'
   $ravendb_filesystems_database_directory = 'C:\\RavenDB\\FileSystems'
+  $config_defaults = {
+  }
+  $config = {
+  }
 
   # $ravendb_installation_type = 'Service'
   $ravendb_service_name = 'RavenDB'
