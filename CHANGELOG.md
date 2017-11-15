@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project follows semver to help clients understand the impact of updates/changes.  Find out more at http://semver.org.
 
+## [v0.2.0](https://github.com/TraGicCode/tragiccode-ravendb/tree/v0.2.0) (2017-11-15)
+[Full Changelog](https://github.com/TraGicCode/tragiccode-ravendb/compare/v0.1.0...v0.2.0)
+
+**Closed issues:**
+
+- Update Documentation for forge [\#10](https://github.com/TraGicCode/tragiccode-ravendb/issues/10)
+
+**Merged pull requests:**
+
+- Updated documentation for the forge. [\#11](https://github.com/TraGicCode/tragiccode-ravendb/pull/11) ([TraGicCode](https://github.com/TraGicCode))
+- Added puppet-blacksmith gem [\#9](https://github.com/TraGicCode/tragiccode-ravendb/pull/9) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v0.1.0](https://github.com/TraGicCode/tragiccode-ravendb/tree/v0.1.0) (2017-11-13)
 **Closed issues:**
 
