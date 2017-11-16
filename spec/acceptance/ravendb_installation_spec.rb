@@ -1,9 +1,8 @@
 require 'spec_helper_acceptance'
 
 describe 'ravendb' do
-
   context 'when installing with provided mandatory parameters' do
-    let(:install_manifest) {
+    let(:install_manifest) do
       <<-MANIFEST
           class { 'ravendb':
               package_ensure                         => 'present',
@@ -15,89 +14,85 @@ describe 'ravendb' do
               ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
           }
         MANIFEST
-    }
-
-    it 'should run without errors' do
-      apply_manifest(install_manifest, :catch_failures => true)
     end
 
-    it 'should be idempotent' do
-      apply_manifest(install_manifest, :catch_changes => true)
+    it 'runs without errors' do
+      apply_manifest(install_manifest, catch_failures: true)
     end
-    
-    
+
+    it 'is idempotent' do
+      apply_manifest(install_manifest, catch_changes: true)
+    end
+
     describe file('C:\RavenDB-3.5.4.Tools.zip') do
-      it { should_not exist }
+      it { is_expected.not_to exist }
     end
 
     describe file('C:\RavenDB Tools') do
-      it { should_not exist }
+      it { is_expected.not_to exist }
     end
 
-
     describe file('C:\RavenDB-3.5.4.Setup.exe') do
-       it { should exist }
+      it { is_expected.to exist }
     end
 
     describe file('C:\RavenDB.install.log') do
-       it { should exist }
+      it { is_expected.to exist }
     end
 
     describe package('RavenDB') do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
 
     describe port(8080) do
-      it { should be_listening }
+      it { is_expected.to be_listening }
     end
 
     describe service('RavenDB') do
-      it { should be_installed }
-      it { should be_running }
-      it { should be_enabled }
+      it { is_expected.to be_installed }
+      it { is_expected.to be_running }
+      it { is_expected.to be_enabled }
     end
   end
 
-
   context 'when uninstalling with provided mandatory parameters' do
-    let(:install_manifest) {
+    let(:install_manifest) do
       <<-MANIFEST
           class { 'ravendb':
               package_ensure                      => 'absent',
               ravendb_uninstall_log_absolute_path => 'C:\\RavenDB.uninstall.log',
           }
         MANIFEST
-    }
-
-    it 'should run without errors' do
-      apply_manifest(install_manifest, :catch_failures => true)
     end
 
-    it 'should be idempotent' do
-      apply_manifest(install_manifest, :catch_changes => true)
+    it 'runs without errors' do
+      apply_manifest(install_manifest, catch_failures: true)
+    end
+
+    it 'is idempotent' do
+      apply_manifest(install_manifest, catch_changes: true)
     end
 
     describe file('C:\RavenDB-3.5.4.Setup.exe') do
-       it { should_not exist }
+      it { is_expected.not_to exist }
     end
 
     describe file('C:\RavenDB.uninstall.log') do
-       it { should exist }
+      it { is_expected.to exist }
     end
 
     describe package('RavenDB') do
-      it { should_not be_installed }
+      it { is_expected.not_to be_installed }
     end
 
     describe port(8080) do
-      it { should_not be_listening }
+      it { is_expected.not_to be_listening }
     end
 
     describe service('RavenDB') do
-      it { should_not be_installed }
-      it { should_not be_running }
-      it { should_not be_enabled }
+      it { is_expected.not_to be_installed }
+      it { is_expected.not_to be_running }
+      it { is_expected.not_to be_enabled }
     end
   end
-
 end

@@ -54,6 +54,7 @@ class { 'ravendb':
       ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
       service_ensure                         => 'running',
       service_enable                         => true,
+      service_restart_on_config_change       => true,
       config                                 => {
         'Raven/Esent/DbExtensionSize' => 128,
         'Raven/Esent/MaxCursors'      => 4096,
@@ -105,6 +106,22 @@ class { 'ravendb':
 ```
 
 A full list of documented configuration possiblities that exist can be found at https://ravendb.net/docs/article-page/3.5/csharp/server/configuration/configuration-options.
+
+### Prevent restarting RavenDB Service on configuration file changes
+
+Generally in production you don't want your database to restart in an uncontrolled manner. For Example, If you are not allowed to restart the database during production hours because it would cause downtime.  If that is the case then in your production  environment you will want to use hiera to set service_restart_on_config_change to false.  You can then push out your code changes to production and at some point in the future during a green window trigger a restart of the service using any method you prefer. ( Puppet Tasks/MCollective/WinRM )
+
+```puppet
+class { 'ravendb':
+      package_ensure                         => 'present',
+      service_restart_on_config_change       => false,
+      config                                 => {
+        'Raven/Esent/DbExtensionSize' => 128,
+        'Raven/Esent/MaxCursors'      => 4096,
+        'Raven/Esent/MaxVerPages'     => 6144,
+      },
+    }
+```
 
 ## Reference
 
@@ -199,6 +216,12 @@ Default: 'running'.
 Whether or not the ravendb service should be enabled to start at boot or disabled. Valid options: true, false, manual
 
 Default: 'true'.
+
+#### `service_restart_on_config_change`
+
+Whether ot not to restart the ravendb service when the ravendb configuration file is updated/changed by puppet. (Raven.Server.exe.config)
+
+Default: true.
 
 #### `config`
 
