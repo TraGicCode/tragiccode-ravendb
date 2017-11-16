@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project follows semver to help clients understand the impact of updates/changes.  Find out more at http://semver.org.
 
+## [v0.3.0](https://github.com/TraGicCode/tragiccode-ravendb/tree/v0.3.0) (2017-11-16)
+[Full Changelog](https://github.com/TraGicCode/tragiccode-ravendb/compare/v0.2.0...v0.3.0)
+
+**Closed issues:**
+
+- Ability to optionally refresh service upon configuration file change [\#12](https://github.com/TraGicCode/tragiccode-ravendb/issues/12)
+
+**Merged pull requests:**
+
+- Ability to control refresh of service [\#15](https://github.com/TraGicCode/tragiccode-ravendb/pull/15) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v0.2.0](https://github.com/TraGicCode/tragiccode-ravendb/tree/v0.2.0) (2017-11-15)
 [Full Changelog](https://github.com/TraGicCode/tragiccode-ravendb/compare/v0.1.0...v0.2.0)
 
