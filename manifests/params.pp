@@ -27,6 +27,7 @@ class ravendb::params {
   $ravendb_port = 8080
   $service_ensure = 'running'
   $service_enable = true
+  $service_restart_on_config_change = true
 
   $ravendb_server_exe_config_absolute_path = "${ravendb_install_folder}\\Raven.Server.exe.config"
 

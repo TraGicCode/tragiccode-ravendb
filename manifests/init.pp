@@ -16,6 +16,7 @@ class ravendb(
   Stdlib::Absolutepath $ravendb_filesystems_database_directory            = $ravendb::params::ravendb_filesystems_database_directory,
   Enum['running', 'stopped'] $service_ensure                              = $ravendb::params::service_ensure,
   Variant[ Boolean, Enum['manual'] ] $service_enable                      = $ravendb::params::service_enable,
+  Boolean $service_restart_on_config_change                               = $ravendb::params::service_restart_on_config_change,
   Hash $config                                                            = $ravendb::params::config,
 ) inherits ravendb::params {
 
@@ -48,6 +49,12 @@ class ravendb(
 
   Class['ravendb::install']
   -> Class['ravendb::config']
-  ~> Class['ravendb::service']
+
+  if ($service_restart_on_config_change) {
+    Class['ravendb::config'] ~> Class['ravendb::service']
+
+  } else {
+    Class['ravendb::config'] -> Class['ravendb::service']
+  }
 
 }
