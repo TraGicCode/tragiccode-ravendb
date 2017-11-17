@@ -18,9 +18,19 @@ class ravendb::params {
   $ravendb_database_directory = 'C:\\RavenDB\\Databases'
   $ravendb_filesystems_database_directory = 'C:\\RavenDB\\FileSystems'
   $config_defaults = {
+    'Raven/DataDir/Legacy'  => '~\Database\System',
+    'Raven/DataDir'         => '~\Databases\System',
+    'Raven/AnonymousAccess' => 'Admin',
+    'Raven/Licensing/AllowAdminAnonymousAccessForCommercialUse' => false,
+    'Raven/AccessControlAllowOrigin' => '*',
+    'Raven/IndexStoragePath' => '',
+    'Raven/TransactionJournalsPath' => '',
+    'Raven/WorkingDir' => '~\\',
+    'Raven/FileSystem/DataDir' => '~\FileSystems',
   }
   $config = {
   }
+
 
   # $ravendb_installation_type = 'Service'
   $ravendb_service_name = 'RavenDB'
