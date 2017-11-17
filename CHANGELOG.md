@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project follows semver to help clients understand the impact of updates/changes.  Find out more at http://semver.org.
 
+## [v0.4.0](https://github.com/TraGicCode/tragiccode-ravendb/tree/v0.4.0) (2017-11-17)
+[Full Changelog](https://github.com/TraGicCode/tragiccode-ravendb/compare/v0.3.0...v0.4.0)
+
+**Closed issues:**
+
+- Move hardcoded config settings in template to config\_defaults hash [\#6](https://github.com/TraGicCode/tragiccode-ravendb/issues/6)
+
+**Merged pull requests:**
+
+- Moved defaults out of template and into default config hash [\#16](https://github.com/TraGicCode/tragiccode-ravendb/pull/16) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v0.3.0](https://github.com/TraGicCode/tragiccode-ravendb/tree/v0.3.0) (2017-11-16)
 [Full Changelog](https://github.com/TraGicCode/tragiccode-ravendb/compare/v0.2.0...v0.3.0)
 
