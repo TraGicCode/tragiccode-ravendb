@@ -20,7 +20,7 @@ describe 'ravendb::config' do
     }
   end
 
-  context 'with config => { owner => root, group => root, mode => 0644 }' do
+  context 'with config => { Raven/Esent/MaxVerPages => 6144, Raven/Esent/DbExtensionSize => 128 }' do
     let(:params) do
       {
         config: { 'Raven/Esent/MaxVerPages' => 6144, 'Raven/Esent/DbExtensionSize' => 128 },
