@@ -18,6 +18,10 @@ describe 'ravendb::config' do
         .with_content(%r{#{Regexp.escape('<add key="Raven/WorkingDir" value="~\"/>')}})
                                                                         .with_content(%r{#{Regexp.escape('<add key="Raven/FileSystem/DataDir" value="~\FileSystems"/>')}})
     }
+
+    it {
+      is_expected.to contain_file('C:\\RavenDB\Raven.Server.exe.config').with_content(%r{#{Regexp.escape("\r\n")}})
+    }
   end
 
   context 'with config => { Raven/Esent/MaxVerPages => 6144, Raven/Esent/DbExtensionSize => 128 }' do
