@@ -11,10 +11,10 @@ class ravendb::config(
 
   file { $ravendb_server_exe_config_absolute_path:
     ensure  => file,
-    content => regsubst(epp('ravendb/Raven.Server.exe.config.epp', {
+    content => unix2dos(epp('ravendb/Raven.Server.exe.config.epp', {
         'config_hash'  => $_config_hash,
         'ravendb_port' => $ravendb_port,
-      }), '\n', "\r\n", 'EMG'),
+      })),
   }
 
 }
