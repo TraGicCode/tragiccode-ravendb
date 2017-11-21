@@ -8,6 +8,9 @@ describe 'ravendb::service' do
       is_expected.to contain_service('RavenDB').with(ensure: 'running',
                                                      enable: true)
     }
+    it {
+      is_expected.to contain_exec('wait-for-service-to-start')
+    }
   end
 
   context 'with package_ensure => absent' do
@@ -18,5 +21,6 @@ describe 'ravendb::service' do
     end
 
     it { is_expected.not_to contain_service('RavenDB') }
+    it { is_expected.not_to contain_exec('wait-for-service-to-start') }
   end
 end
