@@ -26,7 +26,7 @@ Puppet::Type.newtype(:ravendb_database) do
       end
     end
   
-    newproperty(:ensure) do
+    ensurable do
       # Adding documentation to a property/parameter causes it to be down in the following locations
       # 1.) bundle exec puppet describe ravendb_database --modulepath ..
       # NOTE: the validation you add with newvalue are automatically shown below this documentation as well.
@@ -49,6 +49,10 @@ Puppet::Type.newtype(:ravendb_database) do
   
     autorequire(:package) do
       'RavenDB'
+    end
+
+    autorequire(:package) do
+      'ravendb-api-client'
     end
   end
   
