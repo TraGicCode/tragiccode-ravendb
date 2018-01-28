@@ -1,5 +1,7 @@
 # RavenDB
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
+
 #### Table of Contents
 
 1. [Description](#description)
