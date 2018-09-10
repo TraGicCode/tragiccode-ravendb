@@ -1,5 +1,15 @@
-# Class: ravendb
+# Class: vscode
+# ===========================
 #
+# Authors
+# -------
+#
+# Author Name <michael@tragiccode.com>
+#
+# Copyright
+# ---------
+#
+# Copyright 2017
 #
 class ravendb(
   Enum['installed', 'present', 'absent'] $package_ensure                  = $ravendb::params::package_ensure,
