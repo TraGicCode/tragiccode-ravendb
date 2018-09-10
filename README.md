@@ -1,95 +1,242 @@
+# RavenDB
 
-# ravendb
-
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
-
-
-
-
-
-
+[![Puppet Forge](http://img.shields.io/puppetforge/v/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
 
 #### Table of Contents
 
 1. [Description](#description)
-2. [Setup - The basics of getting started with ravendb](#setup)
-    * [What ravendb affects](#what-ravendb-affects)
+1. [Setup - The basics of getting started with ravendb](#setup)
     * [Setup requirements](#setup-requirements)
     * [Beginning with ravendb](#beginning-with-ravendb)
-3. [Usage - Configuration options and additional functionality](#usage)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
+1. [Usage - Configuration options and additional functionality](#usage)
+    * [Install ravendb only](#install_ravendb_only)
+1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Development - Guide for contributing to the module](#development)
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
+The ravendb module installs and manages the ravendb server and service on Windows systems.
 
-This should be a fairly short description helps the user decide if your module is what they want.
-
+Ravendb is a NoSQL database.
 
 ## Setup
 
-### What ravendb affects **OPTIONAL**
+### Setup Requirements
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
+The ravendb module requires the following:
 
-If there's more that they should know about, though, this is the place to mention:
-
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+* Puppet Agent 4.7.1 or later.
+* Access to the internet.
+* Windows Server 2012/2012R2/2016.
 
 ### Beginning with ravendb
 
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+To get started with the ravendb module simply include the following in your manifest:
+
+```puppet
+class { 'ravendb':
+    package_ensure => 'present',
+}
+```
+
+This example downloads, installs, and configured the currently pinned version of the ravendb (3.5.4) and ensures the ravendb service is running and in the desired state.  After running this you should be able to access the ravendb management studio via http://localhost:8080.
+
+A more advanced configuration including all attributes available:
+
+```puppet
+class { 'ravendb':
+      package_ensure                         => 'present',
+      include_management_tools               => true,
+      management_tools_install_directory     => 'C:\\RavenDB Tools',
+      ravendb_service_name                   => 'RavenDB',
+      ravendb_port                           => 8080,
+      ravendb_target_environment             => 'development',
+      ravendb_database_directory             => 'C:\\RavenDB\\Databases',
+      ravendb_filesystems_database_directory => 'C:\\RavenDB\\FileSystems',
+      service_ensure                         => 'running',
+      service_enable                         => true,
+      service_restart_on_config_change       => true,
+      config                                 => {
+        'Raven/Esent/DbExtensionSize' => 128,
+        'Raven/Esent/MaxCursors'      => 4096,
+        'Raven/Esent/MaxVerPages'     => 6144,
+      },
+    }
+```
+
+The above is just an example of the flexibility you have with this module.  You will generally never need to specify every or even so many parameters as shown.
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
+### Install ravendb only
+
+Sometimes you might want to install ravendb but not manage the service with puppet.
+
+```puppet
+class { 'ravendb':
+      package_ensure => 'present',
+      service_manage => false,
+    }
+```
+
+### Install ravendb + ravendb management tools (Smuggler/Backup)
+
+Sometimes you might want to install ravendb and the management tools along with it if you plan on taking backups on the same server.
+
+```puppet
+class { 'ravendb':
+      package_ensure                     => 'present',
+      include_management_tools           => true,
+      management_tools_install_directory => 'C:\\RavenDB Tools',
+}
+```
+
+### Install ravendb with certain configuration settings configured
+
+If you find yourself needing to customize ravendb's configuration don't worry because this is covered.
+
+```puppet
+class { 'ravendb':
+      package_ensure                         => 'present',
+      config                                 => {
+        'Raven/Esent/DbExtensionSize' => 128,
+        'Raven/Esent/MaxCursors'      => 4096,
+        'Raven/Esent/MaxVerPages'     => 6144,
+      },
+    }
+```
+
+A full list of documented configuration possiblities that exist can be found at https://ravendb.net/docs/article-page/3.5/csharp/server/configuration/configuration-options.
+
+### Prevent restarting RavenDB Service on configuration file changes
+
+Generally in production you don't want your database to restart in an uncontrolled manner. For Example, If you are not allowed to restart the database during production hours because it would cause downtime.  If that is the case then in your production  environment you will want to use hiera to set service_restart_on_config_change to false.  You can then push out your code changes to production and at some point in the future during a green window trigger a restart of the service using any method you prefer. ( Puppet Tasks/MCollective/WinRM )
+
+```puppet
+class { 'ravendb':
+      package_ensure                         => 'present',
+      service_restart_on_config_change       => false,
+      config                                 => {
+        'Raven/Esent/DbExtensionSize' => 128,
+        'Raven/Esent/MaxCursors'      => 4096,
+        'Raven/Esent/MaxVerPages'     => 6144,
+      },
+    }
+```
 
 ## Reference
 
-This section is deprecated. Instead, add reference information to your code as Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your module. For details on how to add code comments and generate documentation with Strings, see the Puppet Strings [documentation](https://puppet.com/docs/puppet/latest/puppet_strings.html) and [style guide](https://puppet.com/docs/puppet/latest/puppet_strings_style.html)
+### Classes
 
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the root of your module directory and list out each of your module's classes, defined types, facts, functions, Puppet tasks, task plans, and resource types and providers, along with the parameters for each.
+Parameters are optional unless otherwise noted.
 
-For each element (class, defined type, function, and so on), list:
+#### `ravendb`
 
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
+Installs and manages the ravendb server, service, and management tools.
 
-For example:
+#### `package_ensure`
 
-```
-### `pet::cat`
+Specifies whether the ravendb package resource should be present. Valid options: 'present', 'absent', and 'installed'.
 
-#### Parameters
+Default: 'present'.
 
-##### `meow`
+#### `include_management_tools`
 
-Enables vocalization in your cat. Valid options: 'string'.
+Specified if management tools should be installed.  This includes things like Raven.Smuggler.exe, Raven.Backup.exe, and more.
 
-Default: 'medium-loud'.
-```
+Default: false.
 
-## Limitations
+#### `management_tools_download_url`
 
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
+The full url in which to download the management tools archive (.zip).
+
+Default: 'https://daily-builds.s3.amazonaws.com/RavenDB-3.5.4.Tools.zip'.
+
+#### `management_tools_download_absolute_path`
+
+Specifies the absolute path on the target system in which to download the ravendb management tools .zip archive to.
+
+Default: 'C:\RavenDB-3.5.4.Tools.zip'.
+
+#### `management_tools_install_directory`
+
+Specifies the absolute path on the target system to extract the management tools to.
+
+Default: 'C:\RavenDB Tools'.
+
+#### `ravendb_service_name`
+
+The name of the RavenDB service.
+
+Default: 'RavenDB'.
+
+#### `ravendb_port`
+
+The port in which the ravendb service will listen on.
+
+Default: 8080.
+
+#### `ravendb_install_log_absolute_path`
+
+The absolute path in which to log the installation process to.
+
+Default: 'C:\RavenDB.install.log'.
+
+#### `ravendb_uninstall_log_absolute_path`
+
+The absolute path in which to log the uninstallation process to.
+
+Default: 'C:\RavenDB.uninstall.log'.
+
+#### `ravendb_target_environment`
+
+The environment in which you are targeting. Valid options: 'development' and 'production'.
+
+Default: 'development'.
+
+#### `ravendb_database_directory`
+
+The path in which to store database folders into.
+
+Default: 'C:\RavenDB\Databases'.
+
+#### `ravendb_database_directory`
+
+The path in which to store filesystem database folders into.
+
+Default: 'C:\RavenDB\FileSystems'.
+
+#### `service_ensure`
+
+Whether or not the stackify services should be running or stopped. Valid options: 'running' and 'stopped'.
+
+Default: 'running'.
+
+#### `service_enable`
+
+Whether or not the ravendb service should be enabled to start at boot or disabled. Valid options: true, false, manual
+
+Default: 'true'.
+
+#### `service_restart_on_config_change`
+
+Whether ot not to restart the ravendb service when the ravendb configuration file is updated/changed by puppet. (Raven.Server.exe.config)
+
+Default: true.
+
+#### `config`
+
+Which configuration key values pairs should exist in the ravendb configuration file. (Raven.Server.exe.config)
+
+Default: '{}'.
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
+## Contributing
 
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
+1. Fork it ( https://github.com/tragiccode/tragiccode-ravendb/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request

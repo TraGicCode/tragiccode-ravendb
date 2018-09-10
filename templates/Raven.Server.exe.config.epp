@@ -1,0 +1,19 @@
+<%- | Integer $ravendb_port,
+      Hash $config_hash,
+| -%>
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <appSettings>
+        <add key="Raven/Port" value="<%= $ravendb_port %>"/>
+    <%- $config_hash.each |$key, $value| { -%>
+        <add key="<%= $key %>" value="<%= $value %>"/>
+    <%- } -%>
+    </appSettings>
+    <runtime>
+        <loadFromRemoteSources enabled="true"/>
+        <gcServer enabled="true"/>
+        <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+            <probing privatePath="Analyzers;Plugins"/>
+        </assemblyBinding>
+    </runtime>
+</configuration>

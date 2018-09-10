@@ -3,4 +3,12 @@
 ---
 fixtures:
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+    stdlib: 
+      repo: "puppetlabs/stdlib"
+      ref:  "5.0.0"
+  repositories:
+    dsc: 
+      repo: "https://github.com/puppetlabs/puppetlabs-dsc.git"
+      ref:  "1.6.0"
+  symlinks:
+    ravendb: "#{source_dir}"
