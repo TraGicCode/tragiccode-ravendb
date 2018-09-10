@@ -1,6 +1,6 @@
 {
   "name": "tragiccode-ravendb",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "tragiccode",
   "summary": "The `ravendb` module installs and manages Ravendb on Windows systems.",
   "license": "Apache-2.0",
