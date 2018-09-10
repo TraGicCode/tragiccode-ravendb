@@ -9,8 +9,9 @@ describe 'ravendb::service' do
         it { is_expected.to contain_class('ravendb::params') }
 
         it {
-          is_expected.to contain_service('RavenDB').with(ensure: 'running',
-                                                         enable: true)
+          is_expected.to contain_service('RavenDB')
+            .with(ensure: 'running',
+                  enable: true)
         }
         it {
           is_expected.to contain_exec('wait-for-service-to-start')
