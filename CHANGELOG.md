@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [0.5.0](https://github.com/tragiccode/tragiccode-ravendb/tree/0.5.0) (2018-09-10)
+## [0.5.1](https://github.com/tragiccode/tragiccode-ravendb/tree/0.5.1) (2018-09-10)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-ravendb/compare/0.5.0...0.5.1)
+
+### Fixed
+
+- powershell fact should be pdk update aware [\#29](https://github.com/TraGicCode/tragiccode-ravendb/pull/29) ([TraGicCode](https://github.com/TraGicCode))
+
+## [0.5.0](https://github.com/tragiccode/tragiccode-ravendb/tree/0.5.0) (2018-09-11)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-ravendb/compare/v0.4.0...0.5.0)
 
