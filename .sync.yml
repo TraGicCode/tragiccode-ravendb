@@ -21,7 +21,3 @@ spec/default_facts.yml:
 
 .gitlab-ci.yml:
   delete: true
-
-.travis.yml:
-  extras:
-    - env: CHECK=build DEPLOY_TO_FORGE=yes
