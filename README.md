@@ -1,6 +1,8 @@
 # RavenDB
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
+[![Puppet Forge Version](https://img.shields.io/puppetforge/v/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
+[![Puppet Forge Pdk Version](http://img.shields.io/puppetforge/pdk-version/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
+[![Puppet Forge Downloads](https://img.shields.io/puppetforge/dt/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
 
 #### Table of Contents
 
