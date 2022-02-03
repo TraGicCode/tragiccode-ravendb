@@ -1,3 +1,5 @@
+# DEPRECATED - no longer actively maintained
+
 # RavenDB
 
 [![Puppet Forge Version](https://img.shields.io/puppetforge/v/tragiccode/ravendb.svg)](https://forge.puppetlabs.com/tragiccode/ravendb)
